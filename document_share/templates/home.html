@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+  {% csrf_token %}
+  {% if user.is_authenticated %}
+      <div>
+        You logged in as: {{ user }}
+        &nbsp;
+        <a href="/logout/">Logout</a>
+      </div>
+      <br>
+      <div>
+        <a href="/upload/">Share a document</a>
+      </div>
+  {% if my_docs %}
+        <div>
+            <h3>My documents:</h3>
+            {% for document in my_docs %}
+                <div>
+                 <a href="{{ document.file.url }}">{{ document.file.url }}</a><br/>
+                 <p>Owner: {{ document.owner }}</p>
+                 <p>Upload date: {{ document.upload_date }}</p>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div>
+          Here is no documents shared to you
+        </div>
+    {% endif %}
+    {% if documents %}
+        <div>
+            <h3>Documents shared to you:</h3>
+            {% for document in documents %}
+                <div>
+                 <a href="{{ document.file.url }}">{{ document.file.url }}</a><br/>
+                 <p>Owner: {{ document.owner }}</p>
+                 <p>Upload date: {{ document.upload_date }}</p>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div>
+          Here is no documents shared to you
+        </div>
+    {% endif %}
+  {% else %}
+      <a href="/signup/">Register</a>/<a href="/login">Log In</a>
+  {% endif %}
+</body>
+</html>

@@ -1,0 +1,11 @@
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {% if user.is_authenticated %}
+      <div>
+        {{ form.as_p }}
+        <button type="submit">Upload</button>
+      </div>
+    {% else %}
+        <a href="/signup/">Register</a>/<a href="/login">Log In</a>
+    {% endif %}
+</form>
